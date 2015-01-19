@@ -7,19 +7,17 @@
 
 
 #include <avr/io.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 
 #include "FreeRTOS.h"
 #include "task.h"
 #include "LEDBlinkV1.h"
 
-/* Priority definitions for most of the tasks in the demo application.  Some
-tasks just use the idle priority. */
-#define mainLED_TASK_PRIORITY			( tskIDLE_PRIORITY )
 
 
 
-void LedOnTask( void *pvParameters )
+
+void LedOnTask( void *pvParameters )   // Task -1
 {
 	
 	
@@ -32,7 +30,7 @@ void LedOnTask( void *pvParameters )
 	
 }
 
-void LedOffTask( void *pvParameters )
+void LedOffTask( void *pvParameters )  //Task-2
 {
 	
 	
@@ -48,10 +46,10 @@ void LedOffTask( void *pvParameters )
 portSHORT main(void)
 {
 	vCPU_Port_Init();
-	xTaskCreate( LedOnTask, ( signed char * ) "LON", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
-	xTaskCreate( LedOffTask, ( signed char * ) "LOFF", configMINIMAL_STACK_SIZE, NULL,2, NULL );
-	//start scheduler
-	vTaskStartScheduler();
+	xTaskCreate( LedOnTask, ( signed char * ) "LON", configMINIMAL_STACK_SIZE, NULL, 1, NULL ); //Task creation for task-1
+	xTaskCreate( LedOffTask, ( signed char * ) "LOFF", configMINIMAL_STACK_SIZE, NULL,2, NULL );//Task creation for task-2
+	
+	vTaskStartScheduler();//start scheduler
 	//you should never get here
 	while(1)
 	{

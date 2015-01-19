@@ -201,7 +201,7 @@ portSHORT main(void)
 {
 	vCPU_Port_Init();
   fa:	1c d0       	rcall	.+56     	; 0x134 <vCPU_Port_Init>
-	xTaskCreate( LedOnTask, ( signed char * ) "LON", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
+	xTaskCreate( LedOnTask, ( signed char * ) "LON", configMINIMAL_STACK_SIZE, NULL, 1, NULL ); //Task creation for task-1
   fc:	a1 2c       	mov	r10, r1
   fe:	b1 2c       	mov	r11, r1
  100:	c1 2c       	mov	r12, r1
@@ -218,7 +218,7 @@ portSHORT main(void)
  116:	84 e6       	ldi	r24, 0x64	; 100
  118:	90 e0       	ldi	r25, 0x00	; 0
  11a:	b5 d1       	rcall	.+874    	; 0x486 <xTaskGenericCreate>
-	xTaskCreate( LedOffTask, ( signed char * ) "LOFF", configMINIMAL_STACK_SIZE, NULL,2, NULL );
+	xTaskCreate( LedOffTask, ( signed char * ) "LOFF", configMINIMAL_STACK_SIZE, NULL,2, NULL );//Task creation for task-2
  11c:	02 e0       	ldi	r16, 0x02	; 2
  11e:	20 e0       	ldi	r18, 0x00	; 0
  120:	30 e0       	ldi	r19, 0x00	; 0
@@ -229,8 +229,8 @@ portSHORT main(void)
  12a:	81 e7       	ldi	r24, 0x71	; 113
  12c:	90 e0       	ldi	r25, 0x00	; 0
  12e:	ab d1       	rcall	.+854    	; 0x486 <xTaskGenericCreate>
-	//start scheduler
-	vTaskStartScheduler();
+	
+	vTaskStartScheduler();//start scheduler
  130:	8a d2       	rcall	.+1300   	; 0x646 <vTaskStartScheduler>
  132:	ff cf       	rjmp	.-2      	; 0x132 <main+0x38>
 
